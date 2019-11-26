@@ -18,5 +18,5 @@ COPY --from=build /app/aspnetapp/out ./
 ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 
 USER root
-RUN chmod og+rw /opt/app-root/src/db
+RUN chmod og+rw ./aspnetapp/
 USER default
