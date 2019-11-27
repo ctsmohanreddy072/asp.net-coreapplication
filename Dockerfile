@@ -1,5 +1,5 @@
 FROM microsoft/dotnet:2.1-sdk AS build
-USER default
+#USER default
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
