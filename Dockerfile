@@ -1,4 +1,5 @@
 FROM microsoft/dotnet:2.1-sdk AS build
+USER default
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
@@ -17,6 +18,6 @@ WORKDIR /app
 COPY --from=build /app/aspnetapp/out ./
 ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 
-USER root
-RUN chmod og+rw ./aspnetapp/
-USER default
+#USER root
+#RUN chmod og+rw ./aspnetapp/
+#USER default
