@@ -24,4 +24,5 @@ jobs:
       run: docker images
     - name: Push docker image
       run: docker tag app-test:latest mohanreddy072/app-test:latest
+           docker push mohanreddy072/app-test:latest
       
