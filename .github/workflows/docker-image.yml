@@ -23,7 +23,7 @@ jobs:
     - name: List docker images
       run: docker images
     - name: Tag docker image
-      run: docker tag app-test:latest mohanreddy072/app-test:$(date)
+      run: docker tag app-test:$(date) mohanreddy072/app-test:$(date)
     - name: Push docker image
       run: docker push mohanreddy072/app-test:$(date)
       
