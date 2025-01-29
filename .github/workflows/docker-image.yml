@@ -23,4 +23,5 @@ jobs:
     - name: List docker images
       run: docker images
     - name: Push docker image
-      run: docker push mohanreddy072@gmail.com/app-test:latest
+      run: docker tag app-test:latest mohanreddy072@gmail.com/app-test:latest 
+      
