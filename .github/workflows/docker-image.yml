@@ -22,3 +22,5 @@ jobs:
       with:
         username: mohanreddy072@gmail.com
         password: Narasimha60@
+    - name: Push docker image
+      run: docker push
