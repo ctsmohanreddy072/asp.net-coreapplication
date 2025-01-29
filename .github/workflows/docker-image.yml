@@ -17,3 +17,8 @@ jobs:
       run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
     - name: List Docker images
       run: docker images
+    - name: Docker Login
+    - uses: docker/login-action@v3.3.0
+      with:
+        username: mohanreddy072@gmail.com
+        password: Narasimha60@
