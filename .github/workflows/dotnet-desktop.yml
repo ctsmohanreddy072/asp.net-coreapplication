@@ -69,3 +69,9 @@ jobs:
     - name: Build solution
       run: msbuild aspnetapp.sln /p:Configuration=Release
 
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: drop
+        path: '**/bin/Release/**'
+
