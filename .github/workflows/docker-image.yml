@@ -48,19 +48,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Extract Python versions
-        id: extract_versions
+      - name: Extract all Python versions from pyproject.toml
         run: |
-          # Extract Python versions from pyproject.toml
-          PYTHON_VERSIONS=$(grep -oE 'python\s*=\s*".*?"' pyproject.toml | grep -oE '[0-9]+\.[0-9]+(\.[0-9]+)?' | tr '\n' ' ')
-          
-          # Check if versions were found
+          PYTHON_VERSIONS=$(grep -oE '^python\s*=\s*".*"' pyproject.toml | grep -oE '([0-9]+\.[0-9]+(\.[0-9]+)?)')
           if [ -z "$PYTHON_VERSIONS" ]; then
-            echo "No Python versions found!"
+            echo "Failed to extract Python versions!"
             exit 1
           fi
-          
           echo "Extracted Python versions: $PYTHON_VERSIONS"
+          
 
           # Convert to JSON array format
           JSON_VERSIONS=$(echo "$PYTHON_VERSIONS" | jq -R 'split(" ")' | jq -c '.')
