@@ -29,10 +29,7 @@ jobs:
             echo "Failed to extract Python versions!"
             exit 1
           fi
-          #echo "Extracted Python versions: $PYTHON_VERSIONS"
-
-          # Save versions to a GitHub Actions output
-          echo "PYTHON_VERSIONS=$PYTHON_VERSIONS" >> $GITHUB_ENV
+          echo "Extracted Python versions: $PYTHON_VERSIONS"
 
         
     #- name: Build the Docker image
