@@ -29,17 +29,22 @@ jobs:
             echo "Failed to extract Python versions!"
             exit 1
           fi
-          echo "Extracted Python versions: $PYTHON_VERSIONS"
+          #echo "Extracted Python versions: $PYTHON_VERSIONS"
+
+          # Save versions to a GitHub Actions output
+          echo "PYTHON_VERSIONS=$PYTHON_VERSIONS" >> $GITHUB_ENV
 
     - name: Install each extracted Python version
-      run: |
-          for version in $PYTHON_VERSIONS; do
-            echo "Installing Python $version..."
-            echo "::group::Python $version Setup"
-            actions/setup-python@v4 --python-version=$version
-            echo "::endgroup::"
-            python --version
-          done
+      uses: actions/setup-python@v4
+      with:
+          python-version: ${{ matrix.python_version }}
+
+    strategy:
+      matrix:
+        python_version: ${{ env.PYTHON_VERSIONS }}
+
+  #- name: Verify Installed Python Version
+   # run: python --version
         
     #- name: Fetch 3.9 version
      # run: |
