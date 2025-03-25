@@ -45,50 +45,35 @@
      # run: docker tag app-test:20250129 mohanreddy072/app-test:20250129
     #- name: Push docker image
 
-name: Install All Python Versions from pyproject.toml
+name: Install Python Versions from pyproject.toml
 
 on:
   push:
-    branches: 
-    - "patch-1"
+    branches:
+      - patch1  # Runs only when pushing to 'patch1' branch
 
 jobs:
-  extract-python-versions:
+  install-python:
     runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-      
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Extract Python versions from pyproject.toml
+      - name: Extract Python versions
         id: extract_versions
         run: |
-          # Extract Python versions from pyproject.toml
+          # Extract versions and convert them into JSON array
           PYTHON_VERSIONS=$(grep -oE 'python\s*=\s*".*?"' pyproject.toml | grep -oE '[0-9]+\.[0-9]+(\.[0-9]+)?' | tr '\n' ' ')
           
-          # Check if versions were found
           if [ -z "$PYTHON_VERSIONS" ]; then
-            echo "No Python versions found. Exiting..."
+            echo "No Python versions found!"
             exit 1
           fi
           
-          echo "Extracted Python versions: $PYTHON_VERSIONS"
-          echo "PYTHON_VERSIONS=$(echo $PYTHON_VERSIONS | jq -R 'split(\" \")')" >> $GITHUB_ENV
+          echo "Extracted versions: $PYTHON_VERSIONS"
+          echo "VERSIONS=$(echo $PYTHON_VERSIONS | jq -R 'split(\" \")')" >> $GITHUB_ENV
 
-      - name: Set up matrix for installation
-        id: set-matrix
-        run: echo "matrix={\"python_version\":$PYTHON_VERSIONS}" >> $GITHUB_OUTPUT
-
-  install-python:
-    needs: extract-python-versions
-    runs-on: ubuntu-latest
-    strategy:
-      matrix: ${{ fromJson(needs.extract-python-versions.outputs.matrix) }}
-
-    steps:
-      - name: Install Python ${{ matrix.python_version }}
+      - name: Install each Python version
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python_version }}
