@@ -32,17 +32,16 @@ jobs:
           echo "Extracted Python versions:"
           echo "$PYTHON_VERSIONS"
 
-    - name: Install each extracted versions
+    - name: Install each extracted Python version
       run: |
           for version in $PYTHON_VERSIONS; do
-          echo "Installing python $version...."
-          echo "::group::Python $version Setup"
-          actions/setup-python@v4 --python-version=$version
-          echo "::endgroup::"
-          python --version
+            echo "Installing Python $version..."
+            echo "::group::Python $version Setup"
+            actions/setup-python@v4 --python-version=$version
+            echo "::endgroup::"
+            python --version
           done
-          
-          
+        
     #- name: Fetch 3.9 version
      # run: |
       #    SELECTED_VERSION=$(echo "3.9")
