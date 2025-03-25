@@ -19,7 +19,7 @@ jobs:
 
    # - name: Extract Python version from pyproject.toml file
     #  run: PYTHON_VERSION=$(awk -F '"' '/python = "/ {print $2}' pyproject.toml)
-           echo "Extracted Python Version:$PYTHON_VERSION"
+          # echo "Extracted Python Version:$PYTHON_VERSION"
 
    # - name: Setup Python
    #  uses: actions/setup-python@v5
