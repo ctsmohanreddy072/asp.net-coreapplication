@@ -40,5 +40,5 @@ jobs:
     #- name: Tag docker image
      # run: docker tag app-test:20250129 mohanreddy072/app-test:20250129
     #- name: Push docker image
-      run: docker push mohanreddy072/app-test:20250129
+     # run: docker push mohanreddy072/app-test:20250129
       
