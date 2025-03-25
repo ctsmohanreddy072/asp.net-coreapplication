@@ -43,35 +43,16 @@ jobs:
       matrix:
         python_version: ${{ env.PYTHON_VERSIONS }}
 
-  #- name: Verify Installed Python Version
-   # run: python --version
-        
-    #- name: Fetch 3.9 version
-     # run: |
-      #    SELECTED_VERSION=$(echo "3.9")
-       #   echo "Fetched python version:$SELECTED_VERSION"
-
    # - name: Install Python 3.9
     #  uses: actions/setup-python@v4
      # with:
       #  python-version: 3.9
        
-        
-     # run: |
-      #    PYTHON_VERSION=$(grep -oE '(?<=^python\s*=\s*")[0-9]+\.[0-9]+' pyproject.toml || echo "NOT_FOUND")
-       #   echo "Extracted Python version: $PYTHON_VERSION"
-
-    #- name: Force update PATH to use installed python version
-     # run: echo "$(python -c 'import sys; print(sys.executable)')" >>$GITHUB_PATH
-          # echo "Extracted Python Version:$PYTHON_VERSION"
 
     #- name: Setup Python
      # uses: actions/setup-python@v4
      # with:
       #  python-version: ${{ env.python_version }}
-
-   # - name: Verify Python version
-    #  run: python --version
 
    # - name: Install Python 3.12.3
     #  uses: actions/setup-python@v4
