@@ -34,15 +34,6 @@ jobs:
           # Save versions to a GitHub Actions output
           echo "PYTHON_VERSIONS=$PYTHON_VERSIONS" >> $GITHUB_ENV
 
-    - name: Install each extracted Python version
-      uses: actions/setup-python@v4
-      with:
-          python-version: ${{ matrix.python_version }}
-
-    strategy:
-      matrix:
-        python_version: ${{env.PYTHON_VERSIONS }}
-
         
     #- name: Build the Docker image
      # run: docker build . --file Dockerfile --tag app-test:20250129
