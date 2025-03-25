@@ -35,7 +35,7 @@ jobs:
     - name: Fetch 3.9 version
       run: |
           SELECTED_VERSION=$(echo "3.9")
-          echo "Fetched python version:$"SELECTED_VERSION"
+          echo "Fetched python version:$SELECTED_VERSION"
 
     - name: Install Python 3.9
       uses: actions/setup-python@v4
