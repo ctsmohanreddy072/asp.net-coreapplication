@@ -31,6 +31,9 @@ jobs:
           fi
           echo "Extracted Python versions: $PYTHON_VERSIONS"
 
+    - name: List versions
+      run: echo $PYTHON_VERSIONS
+
         
     #- name: Build the Docker image
      # run: docker build . --file Dockerfile --tag app-test:20250129
