@@ -1,35 +1,35 @@
-#name: Docker Image CI
+name: Docker Image CI
 
-#on:
- # push:
-  #  branches: [ "patch-1" ]
+on:
+  push:
+    branches: [ "patch-1" ]
 
 
-#jobs:
+jobs:
 
- # build:
+  build:
 
-  #  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-   # steps:
-    #- uses: actions/checkout@v4
+    steps:
+    - uses: actions/checkout@v4
 
-    #- name: Print pyproject.toml content
-     # run: cat pyproject.toml
+    - name: Print pyproject.toml content
+      run: cat pyproject.toml
 
-   # - name: Extract Python version
-    #  run: |
-     #     PYTHON_VERSION=$(grep -oE '^python\s*=\s*"([0-9]+\.[0-9]+)"' pyproject.toml | grep -oE '[0-9]+\.[0-9]+')
-      #    echo "Extracted Python version: $PYTHON_VERSION"
-
-    #- name: Extract all Python versions from pyproject.toml
+    #- name: Extract Python version
      # run: |
-      #    PYTHON_VERSIONS=$(grep -oE '^python\s*=\s*".*"' pyproject.toml | grep -oE '([0-9]+\.[0-9]+(\.[0-9]+)?)')
-       #   if [ -z "$PYTHON_VERSIONS" ]; then
-        #    echo "Failed to extract Python versions!"
-         #   exit 1
-          #fi
-          #echo "Extracted Python versions: $PYTHON_VERSIONS"
+       #   PYTHON_VERSION=$(grep -oE '^python\s*=\s*"([0-9]+\.[0-9]+)"' pyproject.toml | grep -oE '[0-9]+\.[0-9]+')
+       #   echo "Extracted Python version: $PYTHON_VERSION"
+
+    - name: Extract all Python versions from pyproject.toml
+      run: |
+          PYTHON_VERSIONS=$(grep -oE '^python\s*=\s*".*"' pyproject.toml | grep -oE '([0-9]+\.[0-9]+(\.[0-9]+)?)')
+          if [ -z "$PYTHON_VERSIONS" ]; then
+            echo "Failed to extract Python versions!"
+            exit 1
+          fi
+          echo "Extracted Python versions: $PYTHON_VERSIONS"
 
         
     #- name: Build the Docker image
@@ -44,41 +44,5 @@
     #- name: Tag docker image
      # run: docker tag app-test:20250129 mohanreddy072/app-test:20250129
     #- name: Push docker image
-
-name: Install Python Versions from pyproject.toml
-
-on:
-  push:
-    branches:
-      - patch1  # Runs only when pushing to 'patch1' branch
-
-jobs:
-  install-python:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Extract Python versions
-        id: extract_versions
-        run: |
-          # Extract versions and convert them into JSON array
-          PYTHON_VERSIONS=$(grep -oE 'python\s*=\s*".*?"' pyproject.toml | grep -oE '[0-9]+\.[0-9]+(\.[0-9]+)?' | tr '\n' ' ')
-          
-          if [ -z "$PYTHON_VERSIONS" ]; then
-            echo "No Python versions found!"
-            exit 1
-          fi
-          
-          echo "Extracted versions: $PYTHON_VERSIONS"
-          echo "VERSIONS=$(echo $PYTHON_VERSIONS | jq -R 'split(\" \")')" >> $GITHUB_ENV
-
-      - name: Install each Python version
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python_version }}
-
-      - name: Verify Installed Python Version
-        run: python --version
      # run: docker push mohanreddy072/app-test:20250129
       
