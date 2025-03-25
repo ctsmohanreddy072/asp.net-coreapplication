@@ -31,16 +31,27 @@ jobs:
           fi
           echo "Extracted Python versions:"
           echo "$PYTHON_VERSIONS"
-          
-    - name: Fetch 3.9 version
-      run: |
-          SELECTED_VERSION=$(echo "3.9")
-          echo "Fetched python version:$SELECTED_VERSION"
 
-    - name: Install Python 3.9
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.9
+    - name: Install each extracted versions
+      run: |
+          for version in $PYTHON_VERSIONS; do
+          echo "Installing python $version...."
+          echo "::group::Python $version Setup"
+          actions/setup-python@v4 --python-version=$version
+          echo "::endgroup::"
+          python --version
+          done
+          
+          
+    #- name: Fetch 3.9 version
+     # run: |
+      #    SELECTED_VERSION=$(echo "3.9")
+       #   echo "Fetched python version:$SELECTED_VERSION"
+
+   # - name: Install Python 3.9
+    #  uses: actions/setup-python@v4
+     # with:
+      #  python-version: 3.9
        
         
      # run: |
@@ -56,16 +67,16 @@ jobs:
      # with:
       #  python-version: ${{ env.python_version }}
 
-    - name: Verify Python version
-      run: python --version
+   # - name: Verify Python version
+    #  run: python --version
 
-    - name: Install Python 3.12.3
-      uses: actions/setup-python@v4
-      with:
-        python-version: 3.12.3
+   # - name: Install Python 3.12.3
+    #  uses: actions/setup-python@v4
+     # with:
+      #  python-version: 3.12.3
 
-    - name: Verify Python version
-      run: python --version
+    #- name: Verify Python version
+    #  run: python --version
         
     #- name: Build the Docker image
      # run: docker build . --file Dockerfile --tag app-test:20250129
