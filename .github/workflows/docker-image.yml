@@ -22,7 +22,11 @@ jobs:
           PYTHON_VERSION=$(grep -oE '^python\s*=\s*"([0-9]+\.[0-9]+)"' pyproject.toml | grep -oE '[0-9]+\.[0-9]+')
           echo "Extracted Python version: $PYTHON_VERSION"
 
-    #- name: Extract Python version
+    - name: Install Python from extracted version
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        
      # run: |
       #    PYTHON_VERSION=$(grep -oE '(?<=^python\s*=\s*")[0-9]+\.[0-9]+' pyproject.toml || echo "NOT_FOUND")
        #   echo "Extracted Python version: $PYTHON_VERSION"
@@ -36,8 +40,8 @@ jobs:
    #   with:
     #    python-version: ${{ env.python_version }}
 
-   # - name: Verify Python version
-    #  run: python --version
+    - name: Verify Python version
+      run: python --version
     #- name: Build the Docker image
      # run: docker build . --file Dockerfile --tag app-test:20250129
     #- name: Docker Login
