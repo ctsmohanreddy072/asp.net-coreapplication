@@ -14,6 +14,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Print pyproject.toml content
+      run: cat pyproject.toml
+
     - name: Extract Python version from pyproject.toml file
       run: PYTHON_VERSION=$(grep -oP 'python\s*=\s*"\K[0-9]+\.[0-9]+'pyproject.toml)
            echo "Extracted Python Version:$PYTHON_VERSION"
