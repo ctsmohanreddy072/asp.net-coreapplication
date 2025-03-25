@@ -17,8 +17,8 @@ jobs:
     - name: Print pyproject.toml content
       run: cat pyproject.toml
 
-    - name: Extract Python version from pyproject.toml file
-      run: PYTHON_VERSION=$(awk -F '"' '/python = "/ {print $2}' pyproject.toml)
+   # - name: Extract Python version from pyproject.toml file
+    #  run: PYTHON_VERSION=$(awk -F '"' '/python = "/ {print $2}' pyproject.toml)
            echo "Extracted Python Version:$PYTHON_VERSION"
 
    # - name: Setup Python
@@ -26,19 +26,19 @@ jobs:
    #   with:
     #    python-version: ${{ env.python_version }}
 
-    - name: Verify Python version
-      run: python --version
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag app-test:20250129
-    - name: Docker Login
-      uses: docker/login-action@v3.3.0
-      with:
-        username: mohanreddy072@gmail.com
-        password: Narasimha60@
-    - name: List docker images
-      run: docker images
-    - name: Tag docker image
-      run: docker tag app-test:20250129 mohanreddy072/app-test:20250129
-    - name: Push docker image
+   # - name: Verify Python version
+    #  run: python --version
+    #- name: Build the Docker image
+     # run: docker build . --file Dockerfile --tag app-test:20250129
+    #- name: Docker Login
+     # uses: docker/login-action@v3.3.0
+     # with:
+      #  username: mohanreddy072@gmail.com
+       # password: Narasimha60@
+    #- name: List docker images
+     # run: docker images
+    #- name: Tag docker image
+     # run: docker tag app-test:20250129 mohanreddy072/app-test:20250129
+    #- name: Push docker image
       run: docker push mohanreddy072/app-test:20250129
       
