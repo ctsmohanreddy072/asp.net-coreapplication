@@ -40,23 +40,6 @@ jobs:
           echo "python_versions=$JSON_VERSIONS" >> $GITHUB_ENV
 
          # echo "versions=$JSON_VERSIONS" >> "$GITHUB_ENV"
-
-  install-python-versions:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ${{ fromJson(env.python_versions) }}
-
-    steps:
-      - name: Install Python and verify
-        run: |
-          # Install Python version from the matrix
-          echo "Installing Python version: ${{ matrix.python-version }}"
-          sudo apt-get update
-          sudo apt-get install -y python${{ matrix.python-version }}
-          
-          # Verify Python version
-          python --version
           
     #- name: Debug JSON Output
      # run: echo "Extracted JSON Versions from Environment:${{ env.versions }}"
