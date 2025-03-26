@@ -1,0 +1,9 @@
+[tool.poetry]
+name = "my-python-project"
+version = "0.1.0"
+description = "A simple python project"
+
+[tool.poetrty.dependencies]
+python = "3.8"
+requests = "^2.28.0"
+flask = "^2.2.0"
