@@ -33,8 +33,8 @@ jobs:
           echo "$PYTHON_VERSIONS"
 
           # Convert extracted versions to JSON array format
-          #JSON_VERSIONS=$(echo "$PYTHON_VERSIONS" | jq -R -s 'split("\n") | map(select(length > 0))' | jq -c '.')
-          JSON_VERSIONS=$(echo "$PYTHON_VERSIONS" | jq -R -s 'split("\n") | map(select(length > 0)) | map("\"" + . + "\"") | join(",")')
+          JSON_VERSIONS=$(echo "$PYTHON_VERSIONS" | jq -R -s 'split("\n") | map(select(length > 0))' | jq -c '.')
+      
           # Print JSON array
           echo "Converted JSON Array:$JSON_VERSIONS"
           echo "python_versions=$JSON_VERSIONS" >> $GITHUB_ENV
