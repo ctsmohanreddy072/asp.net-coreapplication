@@ -61,9 +61,9 @@ jobs:
           echo "Extracted JSON Array: $PYTHON_VERSIONS"
           echo "PYTHON_VERSIONS=$PYTHON_VERSIONS" >> $GITHUB_ENV
 
-    strategy:
-      matrix:
-        python-version: ${{ fromJson(env.PYTHON_VERSIONS) }}
+    #strategy:
+     # matrix:
+      #  python-version: ${{ fromJson(env.PYTHON_VERSIONS) }}
 
           
     #- name: Debug JSON Output
