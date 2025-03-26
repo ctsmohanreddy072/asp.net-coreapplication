@@ -41,7 +41,7 @@ jobs:
           echo "versions=$JSON_VERSIONS" >> "$GITHUB_ENV"
           
     - name: Debug JSON Output
-      run: echo "Extracted JSON Versions from Environment:${{ env.versions }}"
+      run: echo "Extracted JSON Versions from Environment:${{ env.versions }}" | jq .
 
         
     #- name: Build the Docker image
