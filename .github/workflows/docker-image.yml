@@ -1,83 +1,36 @@
-#name: Docker Image CI
-
-#on:
- # push:
-  #  branches: [ "patch-1" ]
-
-
-#jobs:
-
- # build:
-
-  #  runs-on: ubuntu-latest
-
-   # steps:
-    #- uses: actions/checkout@v4
-
-    #- name: Print pyproject.toml content
-     # run: cat pyproject.toml
-
-    #- name: Extract Python version
-     # run: |
-       #   PYTHON_VERSION=$(grep -oE '^python\s*=\s*"([0-9]+\.[0-9]+)"' pyproject.toml | grep -oE '[0-9]+\.[0-9]+')
-       #   echo "Extracted Python version: $PYTHON_VERSION"
-
-    #- name: Extract all Python versions from pyproject.toml
-     # run: |
-      #    PYTHON_VERSIONS=$(grep -oE '^python\s*=\s*".*"' pyproject.toml | grep -oE '([0-9]+\.[0-9]+(\.[0-9]+)?)')
-       #   if [ -z "$PYTHON_VERSIONS" ]; then
-        #    echo "Failed to extract Python versions!"
-         #   exit 1
-          #fi
-          #echo "Extracted Python versions: $PYTHON_VERSIONS"
-
-name: Install Python Versions from pyproject.toml
+name: Docker Image CI
 
 on:
   push:
-    branches:
-      - patch1  # Runs only on 'patch1' branch
+    branches: [ "patch-1" ]
+
 
 jobs:
-  extract-python-versions:
+
+  build:
+
     runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - name: Extract all Python versions from pyproject.toml
-        run: |
+    - name: Print pyproject.toml content
+      run: cat pyproject.toml
+
+    #- name: Extract Python version
+     # run: |
+      #    PYTHON_VERSION=$(grep -oE '^python\s*=\s*"([0-9]+\.[0-9]+)"' pyproject.toml | grep -oE '[0-9]+\.[0-9]+')
+       #   echo "Extracted Python version: $PYTHON_VERSION"
+
+    - name: Extract all Python versions from pyproject.toml
+      run: |
           PYTHON_VERSIONS=$(grep -oE '^python\s*=\s*".*"' pyproject.toml | grep -oE '([0-9]+\.[0-9]+(\.[0-9]+)?)')
           if [ -z "$PYTHON_VERSIONS" ]; then
             echo "Failed to extract Python versions!"
             exit 1
           fi
-          echo "Extracted Python versions: $PYTHON_VERSIONS"
-          
-
-          # Convert to JSON array format
-          JSON_VERSIONS=$(echo "$PYTHON_VERSIONS" | jq -R 'split(" ")' | jq -c '.')
-
-          # Store in GitHub Actions output
-          echo "matrix={\"python_version\":$JSON_VERSIONS}" >> $GITHUB_OUTPUT
-
-  install-python:
-    needs: extract-python-versions
-    runs-on: ubuntu-latest
-    strategy:
-      matrix: ${{ fromJson(needs.extract-python-versions.outputs.matrix) }}
-
-    steps:
-      - name: Install Python ${{ matrix.python_version }}
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python_version }}
-
-      - name: Verify Installed Python Version
-        run: python --version
+          echo "Extracted Python versions"
+          echo "$PYTHON_VERSIONS"
 
         
     #- name: Build the Docker image
