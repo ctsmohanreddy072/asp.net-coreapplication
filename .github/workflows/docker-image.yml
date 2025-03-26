@@ -14,6 +14,17 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Check if pyproject.toml exists
+      id: check-file
+      run: |
+        if [ -f "pyproject.toml" ]; then
+          echo "File exists"
+          echo "FILE_EXISTS=true" >> $GITHUB_ENV
+        else
+          echo "pyproject.tomlnot found! Exiting
+          exit 1
+        fi
+          
     - name: Print pyproject.toml content
       run: cat pyproject.toml
 
