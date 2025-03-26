@@ -39,7 +39,22 @@ jobs:
           echo "Converted JSON Array:$JSON_VERSIONS"
           echo "python_versions=$JSON_VERSIONS" >> $GITHUB_ENV
 
+    - name: Install Python versions
+      run: |
+          # Loop over each version from the JSON array
+          for version in $(echo ${{ env.python_versions }} | jq -r '.[]'); do
+            echo "Installing Python version: $version"
+
+            # Install the version (assuming a package manager or source installation)
+            sudo apt-get update
+            sudo apt-get install -y python${version}
+
+            # Verify the installation
+            python --version
+          done
+
          # echo "versions=$JSON_VERSIONS" >> "$GITHUB_ENV"
+
           
     #- name: Debug JSON Output
      # run: echo "Extracted JSON Versions from Environment:${{ env.versions }}"
