@@ -38,10 +38,6 @@ jobs:
           # Debug: Print JSON array
           echo "Converted JSON Array:$JSON_VERSIONS"
 
-          strategy:
-            matrix:
-              python-version: ${{ fromJson(steps.extract.outputs.versions) }}
-
           # Store JSON as an Output variable
          # echo "versions=$JSON_VERSIONS">> $GITHUB_ENV
 
