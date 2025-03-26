@@ -35,10 +35,28 @@ jobs:
           # Convert extracted versions to JSON array format
           #JSON_VERSIONS=$(echo "$PYTHON_VERSIONS" | jq -R -s 'split("\n") | map(select(length > 0))' | jq -c '.')
           JSON_VERSIONS=$(echo "$PYTHON_VERSIONS" | jq -R -s 'split("\n") | map(select(length > 0)) | map("\"" + . + "\"") | join(",")')
-          # Debug: Print JSON array
+          # Print JSON array
           echo "Converted JSON Array:$JSON_VERSIONS"
+          echo "python_versions=$JSON_VERSIONS" >> $GITHUB_ENV
 
-          echo "versions=$JSON_VERSIONS" >> "$GITHUB_ENV"
+         # echo "versions=$JSON_VERSIONS" >> "$GITHUB_ENV"
+
+  install-python-versions:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ${{ fromJson(env.python_versions) }}
+
+    steps:
+      - name: Install Python and verify
+        run: |
+          # Install Python version from the matrix
+          echo "Installing Python version: ${{ matrix.python-version }}"
+          sudo apt-get update
+          sudo apt-get install -y python${{ matrix.python-version }}
+          
+          # Verify Python version
+          python --version
           
     #- name: Debug JSON Output
      # run: echo "Extracted JSON Versions from Environment:${{ env.versions }}"
