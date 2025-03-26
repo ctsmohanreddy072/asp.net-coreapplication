@@ -33,16 +33,16 @@ jobs:
           echo "$PYTHON_VERSIONS"
 
           # Convert extracted versions to JSON array format
-          JSON_VERSIONS=$(echo "$PYTHON_VERSIONS" | jq -R -s 'split("\n") | map(select(length > 0))')
+          JSON_VERSIONS=$(echo "$PYTHON_VERSIONS" | jq -R -s 'split("\n") | map(select(length > 0))' | jq -c '.')
 
           # Debug: Print JSON array
           echo "Converted JSON Array:$JSON_VERSIONS"
 
           # Store JSON as an Output variable
-          echo "versions=$JSON_VERSIONS">> $GITHUB_ENV
+         # echo "versions=$JSON_VERSIONS">> $GITHUB_ENV
 
-    - name: PrintJSON Output
-      run: echo "Final JSON Output:$VERSIONS_JSON"
+   # - name: PrintJSON Output
+    #  run: echo "Final JSON Output:$VERSIONS_JSON"
 
         
     #- name: Build the Docker image
