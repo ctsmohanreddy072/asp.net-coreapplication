@@ -35,6 +35,9 @@ jobs:
           # Convert extracted versions to JSON array format
           JSON_VERSIONS=$(echo "$PYTHON_VERSIONS" | jq -R -s 'split("\n") | map(select(length > 0))')
 
+          # Debug: Print JSON array
+          echo "Converted JSON Array:$JSON_VERSIONS"
+
         
     #- name: Build the Docker image
      # run: docker build . --file Dockerfile --tag app-test:20250129
