@@ -1,69 +1,43 @@
-#name: Docker Image CI
+name: Docker Image CI
 
-#on:
- # push:
-  #  branches: [ "patch-1" ]
+on:
+  push:
+    branches: [ "patch-1" ]
 
 
-#jobs:
+jobs:
 
- # build:
+  build:
 
-  #  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-   # steps:
-    #- uses: actions/checkout@v4
+    steps:
+    - uses: actions/checkout@v4
 
-    #- name: Print pyproject.toml content
-     # run: cat pyproject.toml
+    - name: Print pyproject.toml content
+      run: cat pyproject.toml
 
     #- name: Extract Python version
      # run: |
       #    PYTHON_VERSION=$(grep -oE '^python\s*=\s*"([0-9]+\.[0-9]+)"' pyproject.toml | grep -oE '[0-9]+\.[0-9]+')
        #   echo "Extracted Python version: $PYTHON_VERSION"
 
-    #- name: Extract all Python versions from pyproject.toml
-     # run: |
-      #    PYTHON_VERSIONS=$(grep -oE '^python\s*=\s*".*"' pyproject.toml | grep -oE '([0-9]+\.[0-9]+(\.[0-9]+)?)')
-       #   if [ -z "$PYTHON_VERSIONS" ]; then
-        #    echo "Failed to extract Python versions!"
-         #   exit 1
-          #fi
-          #echo "Extracted Python versions"
-          #echo "$PYTHON_VERSIONS"
+    - name: Extract all Python versions from pyproject.toml
+      run: |
+          PYTHON_VERSIONS=$(grep -oE '^python\s*=\s*".*"' pyproject.toml | grep -oE '([0-9]+\.[0-9]+(\.[0-9]+)?)')
+          if [ -z "$PYTHON_VERSIONS" ]; then
+            echo "Failed to extract Python versions!"
+            exit 1
+          fi
+          echo "Extracted Python versions"
+          echo "$PYTHON_VERSIONS"
 
           # Convert extracted versions to JSON array format
-          #JSON_VERSIONS=$(echo "$PYTHON_VERSIONS" | jq -R -s 'split("\n") | map(select(length > 0))' | jq -c '.')
+          JSON_VERSIONS=$(echo "$PYTHON_VERSIONS" | jq -R -s 'split("\n") | map(select(length > 0))' | jq -c '.')
       
           # Print JSON array
-          #echo "Converted JSON Array:$JSON_VERSIONS"
-          #echo "python_versions=$JSON_VERSIONS" >> $GITHUB_ENV
-
-name: Install Multiple Python Versions
-
-on:
-  push:
-    branches:
-      - patch1  # Runs only on 'patch1' branch
-
-jobs:
-  install-python:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Extract Python versions from pyproject.toml
-        id: extract
-        run: |
-          PYTHON_VERSIONS=$(grep -oE '[0-9]+\.[0-9]+(\.[0-9]+)?' pyproject.toml | jq -R -s 'split("\n") | map(select(length > 0))' | jq -c '.')
-          echo "Extracted JSON Array: $PYTHON_VERSIONS"
-          echo "PYTHON_VERSIONS=$PYTHON_VERSIONS" >> $GITHUB_ENV
-
-    #strategy:
-     # matrix:
-      #  python-version: ${{ fromJson(env.PYTHON_VERSIONS) }}
+          echo "Converted JSON Array:$JSON_VERSIONS"
+          echo "python_versions=$JSON_VERSIONS" >> $GITHUB_ENV
 
           
     #- name: Debug JSON Output
