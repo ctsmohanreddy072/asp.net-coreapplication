@@ -51,7 +51,7 @@ jobs:
           #PYTHON_VERSIONS=$(echo "$PYTHON_VERSIONS" | jq -R -s 'split("\n") | map(select(length > 0))' | jq -c '.')
       
           # Print JSON array
-          #echo "Converted JSON Array:$PYTHON_VERSIONS"
+          echo "Converted JSON Array:$PYTHON_VERSIONS"
           echo "PYTHON_VERSIONS=$PYTHON_VERSIONS" >> $GITHUB_ENV
 
     - name: Setup python
