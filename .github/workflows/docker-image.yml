@@ -34,7 +34,7 @@ jobs:
 
     - name: Extract Python version
       run: |
-          PYTHON_VERSION=$(grep -oE '3\.12\.4' pyproject.toml 
+          PYTHON_VERSION=$(grep -oE '3.12.4' pyproject.toml 
           echo "Extracted Python version: $PYTHON_VERSION"
 
    # - name: Extract all Python versions from pyproject.toml
