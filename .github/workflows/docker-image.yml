@@ -34,7 +34,7 @@ jobs:
 
     - name: Extract Python version
       run: |
-          PYTHON_VERSION=$(grep -oP '(?<=python versions = ")(.*)(?=")' pyproject.toml | \ tr '||' '\n' | sort -V | tail -n1)
+          PYTHON_VERSION=$(grep -oP '(?<=python versions = ")(.*)(?=")' pyproject.toml | \ tr '||' '\n' | sort -V | tail -n 1)
           echo "Extracted Python version: $PYTHON_VERSION"
 
    # - name: Extract all Python versions from pyproject.toml
