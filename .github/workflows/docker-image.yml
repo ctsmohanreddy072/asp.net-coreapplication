@@ -61,7 +61,7 @@ jobs:
 
     - name: Install 
       run: |
-          pip install requests
+          pip install msd_robotframework_xrayconvertor
           
 
     #- name: Install and Verify Python Versions
