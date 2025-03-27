@@ -48,7 +48,7 @@ jobs:
           echo "$PYTHON_VERSIONS"
 
           # Convert extracted versions to JSON array format
-          #PYTHON_VERSIONS=$(echo "$PYTHON_VERSIONS" | jq -R -s 'split("\n") | map(select(length > 0))' | jq -c '.')
+          PYTHON_VERSIONS=$(echo "$PYTHON_VERSIONS" | jq -R -s 'split("\n") | map(select(length > 0))' | jq -c '.')
       
           # Print JSON array
           echo "Converted JSON Array:$PYTHON_VERSIONS"
