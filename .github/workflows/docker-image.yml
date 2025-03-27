@@ -49,6 +49,12 @@ jobs:
           echo "Converted JSON Array:$PYTHON_VERSIONS"
           echo "PYTHON_VERSIONS=$PYTHON_VERSIONS" >> $GITHUB_ENV
 
+    - name: Setup python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSIONS }}
+          
+
     #- name: Install and Verify Python Versions
      # run: |
       #    sudo apt-get update
