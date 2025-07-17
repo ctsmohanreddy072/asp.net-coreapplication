@@ -38,5 +38,5 @@ jobs:
         path: '**/bin/Release/**'
         
     - name: zip the build output
-      run: Compress-Archieve -Path **/bin/Release/** -DestinationPath release.zip
+      run: Compress-Archive -Path **/bin/Release/** -DestinationPath release.zip
 
