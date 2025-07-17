@@ -21,8 +21,8 @@ jobs:
     - name: setup Nuget
       uses: nuget/setup-nuget@v2
 
-    - name: Restore Nuget Packages
-      run: nuget restore aspnetapp.sln
+   # - name: Restore Nuget Packages
+    #  run: nuget restore aspnetapp.sln
 
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild
