@@ -40,3 +40,11 @@ jobs:
     - name: zip the build output
       run: Compress-Archive -Path **/bin/Release/** -DestinationPath release.zip
 
+    - name: Upload zip to GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: release.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+
