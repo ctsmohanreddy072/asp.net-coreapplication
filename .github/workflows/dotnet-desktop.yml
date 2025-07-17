@@ -39,3 +39,6 @@ jobs:
         
     - name: zip the build output
       run: Compress-Archive -Path **/bin/Release/** -DestinationPath release.zip
+
+    - name: Create nuget package
+      run: nuget pack MyApp.nuspec
