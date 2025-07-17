@@ -1,0 +1,11 @@
+﻿<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>MyAppBuild</id>
+    <version>1.0.0</version>
+    <description>from build artifacts</description>
+  </metadata>
+  <files>
+    <file src="release.zip" target="content/release.zip" />
+  </files>
+</package>
