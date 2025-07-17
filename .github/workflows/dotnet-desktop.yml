@@ -36,4 +36,7 @@ jobs:
       with:
         name: drop
         path: '**/bin/Release/**'
+        
+    - name: zip the build output
+      run: Compress-Archieve -Path **/bin/Release/** -DestinationPath release.zip
 
