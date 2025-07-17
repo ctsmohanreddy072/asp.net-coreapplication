@@ -3,6 +3,7 @@
   <metadata>
     <id>MyAppBuild</id>
     <version>1.0.0</version>
+    <authors>Mohan</authors>
     <description>from build artifacts</description>
   </metadata>
   <files>
