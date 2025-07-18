@@ -1,4 +1,8 @@
-name: .NET Core Desktop
+name: Push NuGet package to GitHub Packages
+
+permissions:
+  packages: write
+  contents: read
 
 on:
   push:
@@ -43,9 +47,8 @@ jobs:
     - name: Create nuget package
       run: nuget pack MyApp.nuspec
 
-    - name: Push Nuget package
-      run: 
-        nuget sources Add -Name "GitHub" 
-        -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" -Username "${{ github.actor }}" -Password "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"
-        nuget push MyAppBuild.1.0.0.nupkg -Source "GitHub"
+    - name: Set up NuGet and Publish
+      run: |
+          nuget sources Add -Name "GitHub" -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" -Username "${{ github.actor }}" -Password "${{ secrets.GITHUB_TOKEN }}"
+          nuget push MyAppBuild.1.0.0.nupkg -Source "GitHub"
       
