@@ -41,7 +41,7 @@ jobs:
         name: drop
         path: '**/bin/Release/**'
         
-    - name: zip the build output
+    - name: zip the build output t
       run: Compress-Archive -Path **/bin/Release/** -DestinationPath release.zip
 
     - name: Create nuget package
