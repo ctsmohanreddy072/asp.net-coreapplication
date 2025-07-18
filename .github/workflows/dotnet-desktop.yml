@@ -50,5 +50,5 @@ jobs:
     - name: Set up NuGet and Publish
       run: |
           nuget sources Add -Name "GitHub" -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" -Username "${{ github.actor }}" -Password "${{ secrets.GITHUB_TOKEN }}"
-          nuget push MyAppBuild.1.0.0.nupkg -Source "GitHub"
+          nuget push MyAppBuild.1.0.1.nupkg -Source "GitHub"
       
