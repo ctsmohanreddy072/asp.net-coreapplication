@@ -1,8 +1,9 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: [ "patch-1" ]
+  workflow_dispatch:
+  #push:
+    #branches: [ "patch-1" ]
 
 
 jobs:
