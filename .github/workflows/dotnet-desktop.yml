@@ -6,10 +6,10 @@ permissions:
 
 on:
   workflow_dispatch:
-  #push:
-   # branches: [ "master" ]
-  #pull_request:
-   # branches: [ "master" ]
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
 
 jobs:
 
@@ -45,7 +45,7 @@ jobs:
     - name: zip the build output t
       run: Compress-Archive -Path **/bin/Release/** -DestinationPath release.zip
 
-    - name: Create a nuget package
+    - name: Create aand a nuget package
       run: nuget pack MyApp.nuspec
 
     - name: Set up NuGet and Publish
