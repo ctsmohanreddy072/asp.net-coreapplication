@@ -1,4 +1,4 @@
-name: Push NuGet package to GitHub Packages
+name: CI/CD Pipeline
 
 permissions:
   actions: write
@@ -29,32 +29,7 @@ jobs:
     runs-on: windows-latest  # For a list of available runner types, refer to
                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
     
-    steps:
-    - name: Update Title
-      shell: pwsh
-      run: |
-          # Get date in YYYYMMDD format
-          $date = (Get-Date).ToString("yyyyMMdd")
-          $newTitle = "CI/CD Pipeline ${date}.$env:GITHUB_RUN_NUMBER"
-          
-          Write-Host "Updating title to: $newTitle"
-          
-          # Update via API
-          $uri = "https://api.github.com/repos/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID"
-          $headers = @{
-            "Authorization" = "Bearer $env:GITHUB_TOKEN"
-            "Accept" = "application/vnd.github.v3+json"
-          }
-          $body = @{name = $newTitle} | ConvertTo-Json
-          
-          try {
-            Invoke-RestMethod -Uri $uri -Method PATCH -Headers $headers -Body $body
-            Write-Host "✅ Successfully updated workflow title"
-          } catch {
-            Write-Host "❌ Failed: $_"
-            Write-Host "Response: $($_.Exception.Response.StatusCode.Value__)"
-          }
-          
+    steps:          
     - name: Checkout
       uses: actions/checkout@v4
       with:
