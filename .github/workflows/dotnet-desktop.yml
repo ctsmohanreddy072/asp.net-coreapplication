@@ -27,10 +27,16 @@ jobs:
 
     runs-on: windows-latest  # For a list of available runner types, refer to
                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-    env:
-      BUILD_NUMBER: ${{ github.run_number }}
     
     steps:
+    - name: Generate Build Number
+      id: buildnum
+      run: |
+          DATE=$(date +'%Y%m%d')
+          # Today's date + run number (resets daily)
+          BUILD_NUMBER="${DATE}.${GITHUB_RUN_NUMBER}"
+          echo "BUILD_NUMBER=${BUILD_NUMBER}" >> $GITHUB_OUTPUT
+          echo "build_number=${BUILD_NUMBER}" >> $GITHUB_ENV
     - name: Checkout
       uses: actions/checkout@v4
       with:
