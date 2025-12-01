@@ -1,4 +1,4 @@
-name: Push NuGet package to GitHub Packages
+name: Push NuGet package to GitHub Packages ${{ github.run_number }}
 
 permissions:
   actions: write
