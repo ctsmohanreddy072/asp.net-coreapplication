@@ -29,58 +29,55 @@ jobs:
                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
     
     steps:
-    - name: Update Workflow Run Title
-      run: |
-          $date = Get-Date -Format "yyyyMMdd"
-          $newTitle = "Push NuGet package to GitHub Packages $date.$env:GITHUB_RUN_NUMBER"
-          
-          # Update workflow run name via GitHub API
-          $body = @{
-            name = $newTitle
-          } | ConvertTo-Json
-          
-          $uri = "https://api.github.com/repos/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID"
-          $headers = @{
-            "Authorization" = "token $env:GITHUB_TOKEN"
-            "Accept" = "application/vnd.github.v3+json"
-          }
-          
-          try {
-            Invoke-RestMethod -Uri $uri -Method PATCH -Headers $headers -Body $body
-            Write-Host "Updated workflow title to: $newTitle"
-          } catch {
-            Write-Host "Failed to update title (might need repo token): $_"
-          }
+    - name: Update workflow title
+      uses: actions/github-script@v7
+      id: update-title
+      with:
+          script: |
+            // Format: YYYYMMDD.RUN_NUMBER
+            const date = new Date().toISOString().split('T')[0].replace(/-/g, '');
+            const newName = `CI/CD Pipeline ${date}.${context.runNumber}`;
+            
+            // Update the workflow run name
+            await github.rest.actions.updateWorkflowRun({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.runId,
+              name: Pipeline
+            });
+            
+            console.log(`Workflow title updated to: ${newName}`);
+            return newName;
 
     - name: Checkout
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
     
-    - name: setup Nuget
-      uses: nuget/setup-nuget@v2
+    #- name: setup Nuget
+     # uses: nuget/setup-nuget@v2
 
-    - name: Restore Nuget Packages
-      run: nuget restore aspnetapp.sln
+    #- name: Restore Nuget Packages
+     # run: nuget restore aspnetapp.sln
 
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2
+    #- name: Setup MSBuild
+     # uses: microsoft/setup-msbuild@v2
 
-    - name: Build solution
-      run: msbuild aspnetapp.sln /p:Configuration=Release
+    #- name: Build solution
+     # run: msbuild aspnetapp.sln /p:Configuration=Release
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: drop
-        path: '**/bin/Release/**'
+    #- name: Upload artifact
+     # uses: actions/upload-artifact@v4
+      #with:
+       # name: drop
+        #path: '**/bin/Release/**'
         
-    - name: zip the build output t
-      run: Compress-Archive -Path **/bin/Release/** -DestinationPath release.zip
+    #- name: zip the build output t
+     # run: Compress-Archive -Path **/bin/Release/** -DestinationPath release.zip
 
-    - name: Create a nuget package
-      run: nuget pack MyApp.nuspec
+    #- name: Create a nuget package
+     # run: nuget pack MyApp.nuspec
 
     - name: dev Deployment
       if: github.event.inputs.environment == 'dev'
