@@ -55,7 +55,7 @@ jobs:
     - name: zip the build output t
       run: Compress-Archive -Path **/bin/Release/** -DestinationPath release.zip
 
-    - name: Create and nuget package
+    - name: Create a nuget package
       run: nuget pack MyApp.nuspec
 
     - name: dev Deployment
