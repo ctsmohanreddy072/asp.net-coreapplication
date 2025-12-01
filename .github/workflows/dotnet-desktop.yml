@@ -1,4 +1,4 @@
-name: Push NuGet package to GitHub Packages ${{ format(date(), 'yyyyMMdd') }}.${{ github.run_number }}
+name: Push NuGet package to GitHub Packages
 
 permissions:
   packages: write
