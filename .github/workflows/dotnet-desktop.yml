@@ -1,4 +1,5 @@
-name: CI/CD Pipeline
+name: Push NuGet package to GitHub Packages
+run-name: ${{ env.BUILD_NUMBER }}
 
 permissions:
   actions: write
@@ -29,7 +30,59 @@ jobs:
     runs-on: windows-latest  # For a list of available runner types, refer to
                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
     
-    steps:          
+    steps:
+    - name: Get today's date
+      id: date
+      shell: pwsh
+      run: |
+          $today = Get-Date -Format "yyyyMMdd"
+          echo "today=$today" >> $env:GITHUB_OUTPUT
+
+    - name: Download previous build number artifact (if exists)
+      uses: actions/download-artifact@v4
+      with:
+        name: build-number
+        continue-on-error: true
+
+    - name: Determine next counter
+      id: counter
+      shell: pwsh
+      run: |
+          $filePath = "build_number.txt"
+          $today = "${{ steps.date.outputs.today }}"
+
+          if (Test-Path $filePath) {
+            $content = Get-Content $filePath
+            $parts = $content -split "\."
+            $lastDate = $parts[0]
+            $lastCount = [int]$parts[1]
+
+            if ($lastDate -eq $today) {
+              $count = $lastCount + 1
+            } else {
+              $count = 1
+            }
+          } else {
+            $count = 1
+          }
+
+          $buildNumber = "$today.$count"
+          echo $buildNumber | Out-File $filePath -Encoding ascii
+
+          echo "build_number=$buildNumber" >> $env:GITHUB_OUTPUT
+
+    - name: Upload build number for next run
+      uses: actions/upload-artifact@v4
+      with:
+          name: build-number
+          path: build_number.txt
+          retention-days: 90
+
+    - name: Set build number for workflow display
+      shell: pwsh
+      run: |
+          echo "BUILD_NUMBER=${{ steps.counter.outputs.build_number }}" >> $env:GITHUB_ENV
+
     - name: Checkout
       uses: actions/checkout@v4
       with:
