@@ -29,6 +29,29 @@ jobs:
                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
     
     steps:
+    - name: Update Workflow Run Title
+      run: |
+          $date = Get-Date -Format "yyyyMMdd"
+          $newTitle = "Push NuGet package to GitHub Packages $date.$env:GITHUB_RUN_NUMBER"
+          
+          # Update workflow run name via GitHub API
+          $body = @{
+            name = $newTitle
+          } | ConvertTo-Json
+          
+          $uri = "https://api.github.com/repos/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID"
+          $headers = @{
+            "Authorization" = "token $env:GITHUB_TOKEN"
+            "Accept" = "application/vnd.github.v3+json"
+          }
+          
+          try {
+            Invoke-RestMethod -Uri $uri -Method PATCH -Headers $headers -Body $body
+            Write-Host "Updated workflow title to: $newTitle"
+          } catch {
+            Write-Host "Failed to update title (might need repo token): $_"
+          }
+
     - name: Checkout
       uses: actions/checkout@v4
       with:
