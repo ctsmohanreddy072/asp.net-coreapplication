@@ -40,9 +40,13 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-    
+        
     - name: setup Nuget
       uses: nuget/setup-nuget@v2
+    
+    - name: Run deployment host
+      shell: pwsh
+      run: ./host.ps1
 
     - name: Restore Nuget Packages
       run: nuget restore aspnetapp.sln
