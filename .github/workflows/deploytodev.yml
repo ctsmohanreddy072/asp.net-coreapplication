@@ -20,7 +20,7 @@ jobs:
         uses: dawidd6/action-download-artifact@v7
         with:
           workflow: build.yml
-          run_id: ${{ github.event.inputs.build_number }}  # Using run number
+          run_number: ${{ github.event.inputs.build_number }}  # Using run number
           name: drop-${{ github.event.inputs.build_number }}
           path: ./downloaded
 
