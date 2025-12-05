@@ -2,7 +2,7 @@ name: deploy to test
 
 on:
   schedule:
-    - cron: '*/2 * * * *'  # Every 5 minutes
+    - cron: '*/5 * * * *'  # Every 5 minutes
 
 jobs:
   download:
