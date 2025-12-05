@@ -1,12 +1,8 @@
 name: deploy to test
 
 on:
-  workflow_dispatch:
-    inputs:
-      build_number:
-        description: 'Build number (e.g., 51)'
-        required: true
-        type: string
+  schedule:
+    - cron: '*/2 * * * *'  # Every 5 minutes
 
 jobs:
   download:
@@ -16,9 +12,9 @@ jobs:
         uses: dawidd6/action-download-artifact@v7
         with:
           workflow: build.yml
-          run_number: ${{ github.event.inputs.build_number }}
-          name: drop-${{ github.event.inputs.build_number }}
-          path: ./downloaded
+          run_number: ${{ github.event.workflow_run.run_number }}
+          name: drop-${{ github.event.workflow_run.run_number }}
+          path: ./downloaded-artifact
 
   Deploy_to_test:
      runs-on: windows-latest  # For a list of available runner types, refer to
