@@ -20,9 +20,9 @@ jobs:
         uses: dawidd6/action-download-artifact@v7
         with:
           workflow: build.yml
-          run_number: ${{ github.event.workflow_run.run_number }}
-          name: drop-${{ github.event.workflow_run.run_number }}
-          path: ./downloaded-artifact
+          run_number: ${{ github.event.inputs.build_number }}
+          name: drop-${{ github.event.inputs.build_number }}
+          path: ./downloaded
 
   Deploy_to_test:
      runs-on: windows-latest  # For a list of available runner types, refer to
