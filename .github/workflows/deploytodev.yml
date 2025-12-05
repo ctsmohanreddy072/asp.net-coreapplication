@@ -19,7 +19,7 @@ jobs:
       - name: Download artifact from build
         uses: dawidd6/action-download-artifact@v7
         with:
-          workflow: ${{ github.event.workflow_run.id   }}
+          workflow: ${{ github.event.workflow_run.run_number   }}
           name: drop-${{ github.event.workflow_run.run_number }}
           path: ./downloaded-artifact
 
