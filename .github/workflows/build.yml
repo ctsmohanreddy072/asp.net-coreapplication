@@ -1,4 +1,4 @@
-name: Push NuGet package to GitHub Packages
+name: Build
 
 permissions:
   actions: write
