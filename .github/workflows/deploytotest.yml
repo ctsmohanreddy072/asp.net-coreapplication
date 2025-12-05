@@ -1,8 +1,16 @@
 name: deploy to test
 
 on:
-  schedule:
-    - cron: '*/5 * * * *'  # Every 5 minutes
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: 'Build number (e.g., 51)'
+        required: true
+        type: string
+
+permissions:
+  actions: read
+  contents: read
 
 jobs:
   download:
