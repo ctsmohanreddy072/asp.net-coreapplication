@@ -2,7 +2,7 @@ name: deploy to dev
 
 on:
   workflow_run:
-    workflows: ["build.yml"]  # Your build.yml workflow name
+    workflows: ["Build"]  # Your build.yml workflow name
     types: [completed]
 
 permissions:
