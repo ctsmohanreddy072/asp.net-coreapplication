@@ -2,29 +2,27 @@ name: deploy to dev
 
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: ["Build"]  # Your build.yml workflow name
-    types: [completed]
-
+    inputs:
+      build_number:
+        description: 'Build number (e.g., 51)'
+        required: true
+        type: string
+        
 permissions:
-  actions: write
-  packages: write
-  contents: read
+  actions: read
 
 jobs:
 
   download:
-    runs-on: ubuntu-latest  # GitHub-hosted - WORKS!
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    
+    runs-on: windows-latest
     steps:
-      # This action handles the API calls for you
-      - name: Download artifact from build
+      - name: Find and download artifact
         uses: dawidd6/action-download-artifact@v7
         with:
-          workflow: ${{ github.event.workflow_run.id }}  # Use the run ID
-          name: drop-${{ github.event.workflow_run.run_number }}
-          path: ./downloaded-artifact
+          workflow: build.yml
+          run_id: ${{ github.event.inputs.build_number }}  # Using run number
+          name: drop-${{ github.event.inputs.build_number }}
+          path: ./downloaded
 
   Deploy_to_Dev:
      runs-on: windows-latest  # For a list of available runner types, refer to
