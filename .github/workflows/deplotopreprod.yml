@@ -1,0 +1,9 @@
+name: deploy to preprod
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: 'Build number (e.g., 51)'
+        required: true
+        type: string
