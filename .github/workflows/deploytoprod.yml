@@ -1,1 +1,25 @@
+name: deploy to prod
 
+on:
+  workflow_dispatch:
+    inputs:
+      build_number:
+        description: 'Build number (e.g., 51)'
+        required: true
+        type: string
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  download:
+    runs-on: windows-latest
+    steps:
+      - name: Find and download artifact
+        uses: dawidd6/action-download-artifact@v7
+        with:
+          workflow: build.yml
+          run_number: ${{ github.event.inputs.build_number }}
+          name: drop-${{ github.event.inputs.build_number }}
+          path: ./downloaded
