@@ -32,4 +32,4 @@ jobs:
      steps:
      - name: preprod Deployment
        run: |
-          echo "Deploying to Pre-Prod environment"
+          echo "Deploying to addition of the environment"
