@@ -1,4 +1,4 @@
-name: deploy to prod
+name: deploy to dummy
 
 on:
   workflow_dispatch:
@@ -11,3 +11,15 @@ on:
 permissions:
   actions: read
   contents: read
+
+jobs:
+  download:
+    runs-on: windows-latest
+    steps:
+      - name: Find and download artifact
+        uses: dawidd6/action-download-artifact@v7
+        with:
+          workflow: build.yml
+          run_number: ${{ github.event.inputs.build_number }}
+          name: drop-${{ github.event.inputs.build_number }}
+          path: ./downloaded
