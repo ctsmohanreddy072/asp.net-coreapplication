@@ -1,4 +1,4 @@
-# directories
+# directories of the file to be ignored
 **/bin/
 **/obj/
 **/out/
