@@ -11,12 +11,12 @@ permissions:
   contents: read
 
 jobs:
-  deploy:
+  deploytogreen:
     runs-on: windows-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Manual deploy step
+      - name: Green deploy
         run: |
           echo "Manual deployment!"
