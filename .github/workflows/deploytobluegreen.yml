@@ -8,12 +8,12 @@ permissions:
   contents: read
 
 jobs:
-
-  Deploy_to_blue-green:
-     runs-on: windows-latest  # For a list of available runner types, refer to
-                            # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-     environment: pre-prod
-     steps:
-     - name: preprod Deployment
-       run: |
-          echo "Deploying to addition of the"
+  deploy:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Manual deploy step
+        run: |
+          echo "Manually triggered deployment!"
