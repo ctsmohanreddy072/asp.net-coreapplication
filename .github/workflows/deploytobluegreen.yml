@@ -3,6 +3,9 @@ name: deploy to bluegreen
 on:
   workflow_dispatch:
 
+  push:
+   branches: [ "Patch4" ]
+
 permissions:
   actions: read
   contents: read
