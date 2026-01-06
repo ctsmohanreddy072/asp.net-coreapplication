@@ -1,0 +1,22 @@
+name: deploy to greenblue
+
+on:
+  workflow_dispatch:
+
+  push:
+   branches: [ "Patch4" ]
+
+permissions:
+  actions: read
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Manual deploy step
+        run: |
+          echo "Manual deployment!"
