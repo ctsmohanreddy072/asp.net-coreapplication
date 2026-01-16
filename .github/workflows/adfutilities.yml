@@ -18,5 +18,13 @@ jobs:
         
     - name: install ADF Utilities package
       run: npm install
-      working-directory: ${{github.workspace}}  # (1) provide the folder location of the package.json file
+      working-directory: ${{github.workspace}}
+      
+    - name: version
+      run: npx adf-publish --version
+      working-directory: ${{github.workspace}}
+
+    - name: help
+      run: npx adf-publish --help
+      working-directory: ${{github.workspace}}
            
