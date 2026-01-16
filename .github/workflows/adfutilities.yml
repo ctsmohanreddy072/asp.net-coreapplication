@@ -1,7 +1,9 @@
 name: adf utilities
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+    - Patch3
 
 jobs:
   deploy:
