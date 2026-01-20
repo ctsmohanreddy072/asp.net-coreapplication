@@ -21,7 +21,7 @@ jobs:
       working-directory: ${{github.workspace}}
       
     - name: version
-      run: npx adf-publish --version
+      run: npm ls @microsoft/azure-data-factory-utilities
       working-directory: ${{github.workspace}}
 
     - name: help
