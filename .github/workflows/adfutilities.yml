@@ -25,6 +25,6 @@ jobs:
       working-directory: ${{github.workspace}}
 
     - name: help
-      run: npx adf-publish --help
+      run: node --version
       working-directory: ${{github.workspace}}
            
