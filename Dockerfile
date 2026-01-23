@@ -21,3 +21,4 @@ ENTRYPOINT ["dotnet", "aspnetapp.dll"]
 #USER root
 #RUN chmod og+rw ./aspnetapp/
 #USER default
+#done
