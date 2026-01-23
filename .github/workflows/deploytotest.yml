@@ -3,10 +3,6 @@ name: deploy to test
 on:
   workflow_dispatch:
 
-permissions:
-  actions: read
-  contents: read
-
 jobs:
   download:
     runs-on: windows-latest
