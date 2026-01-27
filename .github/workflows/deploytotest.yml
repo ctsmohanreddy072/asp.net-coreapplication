@@ -12,7 +12,7 @@ jobs:
         with:
          github_token: ${{ secrets.GITHUB_TOKEN }}
          workflow: build.yml
-         branch: master
+         branch: Patch3
          name: drop
          name_is_regexp: true
         
@@ -25,4 +25,8 @@ jobs:
      - name: Test Deployment
        run: |
           echo "Deploying to Test environment"
-      
+     
+     - name: List files with PowerShell
+       run: |
+    
+         Get-ChildItem -Recurse -File | Format-Table Name, Length, LastWriteTime
