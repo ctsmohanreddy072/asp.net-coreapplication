@@ -26,6 +26,6 @@ jobs:
        run: |
           echo "Deploying to Test environment"
 
-     - name: View downloaded contents
-       run: Get-ChildItem -Recurse
+     - name: Find and list downloaded folder
+       run: Get-ChildItem drop-12 -Recurse
     
