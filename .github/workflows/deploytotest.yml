@@ -26,6 +26,29 @@ jobs:
        run: |
           echo "Deploying to Test environment"
 
+     - name: Debug download
+       run: |
+    
+        Write-Host "=== CURRENT DIRECTORY ==="
+        pwd
+    
+        Write-Host "`n=== ALL FOLDERS HERE ==="
+        Get-ChildItem
+    
+        Write-Host "`n=== CHECKING drop-12 ==="
+        if (Test-Path "drop-12") {
+        Write-Host "drop-12 EXISTS"
+        $files = Get-ChildItem "drop-12" -Recurse
+        Write-Host "File count: $($files.Count)"
+        $files | Select-Object -First 5 | Format-Table FullName
+        } else {
+        Write-Host "drop-12 NOT FOUND"
+        Write-Host "Trying with full path:"
+        $fullPath = Join-Path $(pwd) "drop-12"
+        Write-Host "Full path: $fullPath"
+        Test-Path $fullPath
+        }
+
       
      - name: List downloaded files
        run: |
