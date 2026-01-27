@@ -28,4 +28,7 @@ jobs:
 
      - name: Find and list downloaded folder
        run: Get-ChildItem drop-12 -Recurse
+
+     - name: List files
+       run: ls -R drop-12
     
