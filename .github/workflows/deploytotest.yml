@@ -16,56 +16,56 @@ jobs:
          name: drop
          name_is_regexp: true
         
-  Deploy_to_test:
-     runs-on: windows-latest  # For a list of available runner types, refer to
+#  Deploy_to_test:
+  #   runs-on: windows-latest  # For a list of available runner types, refer to
                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-     needs: download
-     environment: test
-     steps:
-     - name: Test Deployment
-       run: |
+   #  needs: download
+ #    environment: test
+   #  steps:
+      - name: Test Deployment
+        run: |
           echo "Deploying to Test environment"
 
-     - name: Check download location
-       run: |
+      - name: Check download location
+        run: |
 
          Write-Host "Looking in entire workspace..."
          tree /F /A | findstr "drop"
 
-     - name: Debug download
-       run: |
+      - name: Debug download
+        run: |
     
-        Write-Host "=== CURRENT DIRECTORY ==="
-        pwd
+         Write-Host "=== CURRENT DIRECTORY ==="
+         pwd
     
-        Write-Host "`n=== ALL FOLDERS HERE ==="
-        Get-ChildItem
-    
-        Write-Host "`n=== CHECKING drop-12 ==="
-        if (Test-Path "drop-12") {
-        Write-Host "drop-12 EXISTS"
-        $files = Get-ChildItem "drop-12" -Recurse
-        Write-Host "File count: $($files.Count)"
-        $files | Select-Object -First 5 | Format-Table FullName
-        } else {
-        Write-Host "drop-12 NOT FOUND"
-        Write-Host "Trying with full path:"
-        $fullPath = Join-Path $(pwd) "drop-12"
+         Write-Host "`n=== ALL FOLDERS HERE ==="
+         Get-ChildItem
+     
+         Write-Host "`n=== CHECKING drop-12 ==="
+         if (Test-Path "drop-12") {
+         Write-Host "drop-12 EXISTS"
+         $files = Get-ChildItem "drop-12" -Recurse
+         Write-Host "File count: $($files.Count)"
+         $files | Select-Object -First 5 | Format-Table FullName
+         } else {
+         Write-Host "drop-12 NOT FOUND"
+         Write-Host "Trying with full path:"
+         $fullPath = Join-Path $(pwd) "drop-12"
         Write-Host "Full path: $fullPath"
-        Test-Path $fullPath
-        }
+         Test-Path $fullPath
+         }
 
       
-     - name: List downloaded files
-       run: |
-        Write-Host "=== FILES IN drop-12 ===" -ForegroundColor Green
-        Get-ChildItem drop-12 -Recurse | ForEach-Object {
-        Write-Host $_.FullName
-        }
+      - name: List downloaded files
+        run: |
+         Write-Host "=== FILES IN drop-12 ===" -ForegroundColor Green
+         Get-ChildItem drop-12 -Recurse | ForEach-Object {
+         Write-Host $_.FullName
+         }
 
-     - name: Find and list downloaded folder
-       run: Get-ChildItem drop-12 -Recurse
-
-     - name: List files
-       run: ls -R drop-12
+      - name: Find and list downloaded folder
+        run: Get-ChildItem drop-12 -Recurse
+ 
+      - name: List files
+        run: ls -R drop-12
     
