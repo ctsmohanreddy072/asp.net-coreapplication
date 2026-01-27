@@ -1,0 +1,25 @@
+name: deploy to test
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  download:
+    runs-on: windows-latest
+    steps:
+      - name: Download Latest from develop
+        uses: dawidd6/action-download-artifact@v6
+        with:
+         github_token: ${{ secrets.GITHUB_TOKEN }}
+         workflow: build.yml
+         branch: Patch3
+         name: drop
+         name_is_regexp: true
+
+      - name: List downloaded files
+        run: |
+         Write-Host "=== FILES IN drop-12 ===" -ForegroundColor Green
+         Get-ChildItem drop-12 -Recurse | ForEach-Object {
+         Write-Host $_.FullName
+         }
