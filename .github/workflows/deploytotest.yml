@@ -26,6 +26,14 @@ jobs:
        run: |
           echo "Deploying to Test environment"
 
+      
+     - name: List downloaded files
+       run: |
+        Write-Host "=== FILES IN drop-12 ===" -ForegroundColor Green
+        Get-ChildItem drop-12 -Recurse | ForEach-Object {
+        Write-Host $_.FullName
+        }
+
      - name: Find and list downloaded folder
        run: Get-ChildItem drop-12 -Recurse
 
