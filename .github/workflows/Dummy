@@ -1,7 +1,10 @@
-name: deploy to test
+name: deploy to dummy
 
 on:
   workflow_dispatch:
+
+  push:
+   branches: [ "Patch4" ]
 
 
 jobs:
