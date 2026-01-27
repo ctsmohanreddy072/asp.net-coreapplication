@@ -62,4 +62,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: drop-${{ env.BUILD_NUMBER }}
-        path: ${{ github.workspace }}/aspnetapp/bin/Release/**
+        path: ${{ github.workspace }}/aspnetapp/bin/**
