@@ -27,5 +27,5 @@ jobs:
           echo "Deploying to Test environment"
 
      - name: View downloaded contents
-       run: dir /s
+       run: Get-ChildItem -Recurse
     
