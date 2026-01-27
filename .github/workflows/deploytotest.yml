@@ -26,6 +26,12 @@ jobs:
        run: |
           echo "Deploying to Test environment"
 
+     - name: Check download location
+       run: |
+
+         Write-Host "Looking in entire workspace..."
+         tree /F /A | findstr "drop"
+
      - name: Debug download
        run: |
     
