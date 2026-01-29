@@ -19,6 +19,7 @@ jobs:
          branch: Patch3
          name: drop
          name_is_regexp: true
+         path: ./export
 
       - name: List downloaded files
         run: |
