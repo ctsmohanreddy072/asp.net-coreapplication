@@ -19,7 +19,17 @@ jobs:
          branch: Patch3
          name: drop
          name_is_regexp: true
-         path: ./export
+
+      - name: Copy to fixed folder
+        run: |
+         $dropDir = Get-ChildItem -Path "${{ github.workspace }}\drop-*" -Directory | Select-Object -First 1
+         Copy-Item -Path "$dropDir\*" -Destination "${{ github.workspace }}\deploy" -Recurse -Force
+    
+         echo "Copied to: ${{ github.workspace }}\deploy"
+
+      - name: List files
+        run: |
+         dir "${{ github.workspace }}\deploy\Release\netcoreapp2.1"     
 
       - name: List downloaded files
         run: |
