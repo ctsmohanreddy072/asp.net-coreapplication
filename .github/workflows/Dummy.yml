@@ -20,9 +20,23 @@ jobs:
          name: drop
          name_is_regexp: true
 
-      - name: List files
+      - name: Debug download structure
         run: |
-          dir "${{ github.workspace }}\drop-12"       
+         echo "=== What was downloaded? ==="
+         $dropDir = Get-ChildItem -Path "${{ github.workspace }}\drop-*" -Directory | Select-Object -First 1
+         echo "Drop directory: $($dropDir.FullName)"
+         echo "`n=== Tree structure ==="
+         Get-ChildItem -Path $dropDir.FullName -Recurse | 
+         Select-Object -First 20 | 
+         ForEach-Object {
+         $depth = ($_.FullName -split '\\').Count - ($dropDir.FullName -split '\\').Count
+         $indent = "  " * $depth
+         if ($_.PSIsContainer) {
+           echo "${indent}[$($_.Name)]"
+         } else {
+           echo "${indent}$($_.Name)"
+         }
+         }  
 
       - name: Copy to fixed folder
         run: |
@@ -30,6 +44,22 @@ jobs:
          Copy-Item -Path "$dropDir\*" -Destination "${{ github.workspace }}\deploy" -Recurse -Force
     
          echo "Copied to: ${{ github.workspace }}\deploy"
+
+      - name: Debug copy result
+        run: |
+         echo "=== What was copied? ==="
+         echo "Deploy folder: ${{ github.workspace }}\deploy"
+         Get-ChildItem -Path "${{ github.workspace }}\deploy" -Recurse | 
+         Select-Object -First 20 | 
+         ForEach-Object {
+         $depth = ($_.FullName -split '\\').Count - ("${{ github.workspace }}\deploy" -split '\\').Count
+         $indent = "  " * $depth
+         if ($_.PSIsContainer) {
+         echo "${indent}[$($_.Name)]"
+         } else {
+          echo "${indent}$($_.Name)"
+         }
+         }
 
       - name: List files
         run: |
