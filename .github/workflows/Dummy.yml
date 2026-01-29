@@ -20,6 +20,10 @@ jobs:
          name: drop
          name_is_regexp: true
 
+      - name: List files
+        run: |
+          dir "${{ github.workspace }}\drop-12"       
+
       - name: Copy to fixed folder
         run: |
          $dropDir = Get-ChildItem -Path "${{ github.workspace }}\drop-*" -Directory | Select-Object -First 1
