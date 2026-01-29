@@ -41,7 +41,7 @@ jobs:
       - name: Copy to fixed folder
         run: |
          $dropDir = Get-ChildItem -Path "${{ github.workspace }}\drop-*" -Directory | Select-Object -First 1
-         Copy-Item -Path "$dropDir\*" -Destination "${{ github.workspace }}\deploy" -Recurse -Force
+         Copy-Item -Path $dropDir -Destination "${{ github.workspace }}\deploy" -Recurse -Force
     
          echo "Copied to: ${{ github.workspace }}\deploy"
 
