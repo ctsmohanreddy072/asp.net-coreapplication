@@ -22,11 +22,16 @@ jobs:
 
       - name: Get Runner IP
         id: ip
-        run: echo "ipv4=$(curl -s https://api.ipify.org)" >> $GITHUB_OUTPUT
+        shell: pwsh
+        run: |
+          $ip = curl -s https://api.ipify.org
+          echo "ipv4=$ip" >> $env:GITHUB_OUTPUT
 
       - name: View the IP Address
         run: echo "The GitHub Runner IP is ${{ steps.ip.outputs.ipv4 }}"
 
+
+      
       - name: Debug download structure
         run: |
          echo "=== What was downloaded? ==="
