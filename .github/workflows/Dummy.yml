@@ -75,7 +75,7 @@ jobs:
 
       - name: List files
         run: |
-         dir "${{ github.workspace }}\deploy\Release\netcoreapp2.1"     
+         dir "${{ github.workspace }}/deploy/Release/netcoreapp2.1"     
 
       - name: List downloaded files
         run: |
