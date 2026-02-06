@@ -41,4 +41,7 @@ jobs:
         if: github.event.inputs.environment == 'dev'
         run: echo "This only runs for dev environment"
 
+      - name: dummy
+        run: letsgo
+
     
