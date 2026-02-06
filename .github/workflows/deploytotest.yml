@@ -42,6 +42,6 @@ jobs:
         run: echo "This only runs for dev environment"
 
       - name: dummy
-        run: letsgo
+        run: dir
 
     
