@@ -11,8 +11,6 @@ on:
         options:
         - dev
         - test
-  pull_request:
-    branches: [ "Patch4" ]
 
 jobs:
   download:
