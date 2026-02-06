@@ -32,7 +32,11 @@ jobs:
      environment: test
      steps:
       - name: Test Deployment
-        if: github.event.inputs.environment == 'test'
+        #if: github.event.inputs.environment == 'test'
+        run: echo "This only runs for test environment"
+
+      - name: dev Deployment
+        if: github.event.inputs.environment == 'dev'
         run: echo "This only runs for dev environment"
 
     
