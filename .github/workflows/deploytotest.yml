@@ -29,9 +29,10 @@ jobs:
      runs-on: windows-latest  # For a list of available runner types, refer to
                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
      needs: download
-     environment: production
+     environment: test
      steps:
       - name: Test Deployment
-        run: |
-          echo "Deploying to Test environments"
+        if: github.event.inputs.target_env == 'dev'
+        run: echo "This only runs for dev environment"
+
     
