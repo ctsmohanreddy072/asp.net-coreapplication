@@ -19,3 +19,6 @@ jobs:
       - name: Manual deploy step
         run: |
           echo "Manually triggered deployment!"
+
+      - name: dummy
+        run: dummy
