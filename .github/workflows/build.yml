@@ -1,4 +1,4 @@
-name: Build
+name: Build to build
 
 permissions:
   actions: write
