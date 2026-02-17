@@ -2,16 +2,15 @@ name: deploy to bluegreen
 
 on:
   workflow_dispatch:
-
-  push:
-   branches: [ "Patch4" ]
+  pull_request:
+    branches: [ "Patch4" ]  
 
 permissions:
   actions: read
   contents: read
 
 jobs:
-  deploy:
+  deployasbluegreen:
     runs-on: windows-latest
     steps:
       - name: Checkout code
@@ -20,3 +19,6 @@ jobs:
       - name: Manual deploy step
         run: |
           echo "Manually triggered deployment!"
+
+      - name: dummy
+        run: dummy

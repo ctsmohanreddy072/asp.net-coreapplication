@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
   push:
-   branches: [ "Patch4" ]
+   branches: [ "Patch4", "Patch105" ]
 
 
 jobs:
@@ -20,17 +20,67 @@ jobs:
          name: drop
          name_is_regexp: true
 
-      - name: Get Runner IP
-        id: ip
+      #- name: Get Runner IP
+        #id: ip
+        #shell: pwsh
+        #run: |
+          #$ip = curl -s https://api.ipify.org
+          #$ip6 = (curl -s https://api64.ipify.org || true)
+          #echo "ipv4=$ip" >> $env:GITHUB_OUTPUT
+          #echo "ipv6=$ip6" >> $env:GITHUB_OUTPUT
+
+      #- name: View the IP Address
+        #run: echo "The GitHub Runner IP is ${{ steps.ip.outputs.ipv4 }}"
+
+      - name: Get runner public IPs (Windows)
+        id: runner_ip
         shell: pwsh
         run: |
-          $ip = curl -s https://api.ipify.org
-          echo "ipv4=$ip" >> $env:GITHUB_OUTPUT
+         $ipV4 = (Invoke-RestMethod -Uri "https://api.ipify.org").Trim()
+         $ipV6 = ""
+         try {
+           $ipV6 = (Invoke-RestMethod -Uri "https://api64.ipify.org").Trim()
+         } catch {
+         $ipV6 = ""
+         }
 
-      - name: View the IP Address
-        run: echo "The GitHub Runner IP is ${{ steps.ip.outputs.ipv4 }}"
+         Write-Host "github runner ipv4 is $ipV4"
+         if ($ipV6) {
+         Write-Host "github runner ipv6 is $ipV6"
+         } else {
+         Write-Host "github runner ipv6 is (not available)"
+         }
+         "ipv4=$ipV4" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+         "ipv6=$ipV6" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+      
+      - name: view the IP4 address
+        run: echo "The GitHub Runner IPV4 is ${{ steps.runner_ip.outputs.ipv4 }}"
 
+      - name: view the IP6 address
+        run: echo echo "The GitHub Runner IPV6 is ${{ steps.runner_ip.outputs.ipv4 }}"
 
+      - name: Verify IPv4 vs IPv6 egress
+        shell: pwsh
+        run: |
+         $v4 = (Invoke-RestMethod -Uri "https://1.1.1.1/cdn-cgi/trace").ToString()
+         $v6 = ""
+         try {
+         $v6 = (Invoke-RestMethod -Uri "https://[2606:4700:4700::1111]/cdn-cgi/trace").ToString()
+         } catch {
+         $v6 = ""
+         }
+
+         Write-Host "::group::Cloudflare trace (IPv4 endpoint)"
+         Write-Host $v4
+         Write-Host "::endgroup::"
+
+         if ($v6) {
+         Write-Host "::group::Cloudflare trace (IPv6 endpoint)"
+         Write-Host $v6
+         Write-Host "::endgroup::"
+         } else {
+         Write-Host "IPv6 endpoint not reachable from this runner."
+         }
       
       - name: Debug download structure
         run: |
