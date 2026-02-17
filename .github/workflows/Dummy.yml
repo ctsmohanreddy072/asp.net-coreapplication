@@ -20,22 +20,40 @@ jobs:
          name: drop
          name_is_regexp: true
 
-      - name: Get Runner IP
-        id: ip
+      #- name: Get Runner IP
+        #id: ip
+        #shell: pwsh
+        #run: |
+          #$ip = curl -s https://api.ipify.org
+          #$ip6 = (curl -s https://api64.ipify.org || true)
+          #echo "ipv4=$ip" >> $env:GITHUB_OUTPUT
+          #echo "ipv6=$ip6" >> $env:GITHUB_OUTPUT
+
+      #- name: View the IP Address
+        #run: echo "The GitHub Runner IP is ${{ steps.ip.outputs.ipv4 }}"
+
+      - name: Get runner public IPs (Windows)
+        id: runner_ip
         shell: pwsh
         run: |
-          $ip = curl -s https://api.ipify.org
-          $ip6 = (curl -s https://api64.ipify.org || true)
-          echo "ipv4=$ip" >> $env:GITHUB_OUTPUT
-          echo "ipv6=$ip6" >> $env:GITHUB_OUTPUT
+         $ipV4 = (Invoke-RestMethod -Uri "https://api.ipify.org").Trim()
+         $ipV6 = ""
+         try {
+           $ipV6 = (Invoke-RestMethod -Uri "https://api64.ipify.org").Trim()
+         } catch {
+         $ipV6 = ""
+         }
 
-      - name: View the IPV6 Address
-        run: echo "The GitHub Runner IP is ${{ steps.ip.outputs.ipv6 }}"
+         Write-Host "github runner ipv4 is $ipV4"
+         if ($ipV6) {
+         Write-Host "github runner ipv6 is $ipV6"
+         } else {
+         Write-Host "github runner ipv6 is (not available)"
+         }
 
-      - name: View the IP Address
-        run: echo "The GitHub Runner IP is ${{ steps.ip.outputs.ipv4 }}"
-
-
+    # Set outputs for later steps
+        "ipv4=$ipV4" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
+        "ipv6=$ipV6" | Out-File -FilePath $env:GITHUB_OUTPUT -Encoding utf8 -Append
       
       - name: Debug download structure
         run: |
