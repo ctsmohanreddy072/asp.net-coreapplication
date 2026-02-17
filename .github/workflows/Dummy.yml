@@ -25,7 +25,12 @@ jobs:
         shell: pwsh
         run: |
           $ip = curl -s https://api.ipify.org
+          $ip6 = (curl -s https://api64.ipify.org || true)
           echo "ipv4=$ip" >> $env:GITHUB_OUTPUT
+          echo "ipv6=$ip6" >> $env:GITHUB_OUTPUT
+
+      - name: View the IPV6 Address
+        run: echo "The GitHub Runner IP is ${{ steps.ip.outputs.ipv6 }}"
 
       - name: View the IP Address
         run: echo "The GitHub Runner IP is ${{ steps.ip.outputs.ipv4 }}"
