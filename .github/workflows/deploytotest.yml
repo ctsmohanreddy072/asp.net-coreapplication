@@ -2,32 +2,32 @@ name: deploy to test
 
 on:
   workflow_dispatch:
-    inputs:
-      build_number:
-        description: 'Build number (e.g., 51)'
-        required: true
-        type: string
+    #inputs:
+      #build_number:
+        #description: 'Build number (e.g., 51)'
+        #required: true
+        #type: string
 
 permissions:
   actions: read
   contents: read
 
 jobs:
-  download:
-    runs-on: windows-latest
-    steps:
-      - name: Find and download artifact
-        uses: dawidd6/action-download-artifact@v7
-        with:
-          workflow: build.yml
-          run_number: ${{ github.event.inputs.build_number }}
-          name: drop-${{ github.event.inputs.build_number }}
-          path: ./downloaded
+  #download:
+    #runs-on: windows-latest
+    #steps:
+      #- name: Find and download artifact
+        #uses: dawidd6/action-download-artifact@v7
+        #with:
+          #workflow: build.yml
+          #run_number: ${{ github.event.inputs.build_number }}
+          #name: drop-${{ github.event.inputs.build_number }}
+          #path: ./downloaded
 
   Deploy_to_test:
      runs-on: windows-latest  # For a list of available runner types, refer to
                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
-     needs: download
+     #needs: download
      environment: test
      steps:
      - name: Test Deployment
