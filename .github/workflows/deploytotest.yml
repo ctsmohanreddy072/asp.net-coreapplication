@@ -7,6 +7,14 @@ on:
         #description: 'Build number (e.g., 51)'
         #required: true
         #type: string
+      inputs:
+       environment:
+        description: 'Environment'
+        required: true
+        type: choice
+        options:
+        - dev
+        - test
 
 permissions:
   actions: read
