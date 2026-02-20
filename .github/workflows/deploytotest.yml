@@ -12,9 +12,9 @@ on:
         description: 'Environment'
         required: true
         default: test
-        #type: choice
-        #options:
-        #- test
+        type: choice
+        options:
+        - test
 
 permissions:
   actions: read
