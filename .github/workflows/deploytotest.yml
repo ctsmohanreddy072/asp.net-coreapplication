@@ -70,7 +70,7 @@ jobs:
        
      - name: List files
        run: |
-         dir "${{ github.workspace }}"
+         dir "${{ github.workspace }}/asp.net-coreapplication"
      - name: Test Deployment
        run: |
           echo "Deploying to Test environment"
