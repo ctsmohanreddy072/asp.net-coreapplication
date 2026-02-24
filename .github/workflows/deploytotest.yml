@@ -38,28 +38,39 @@ jobs:
      #needs: download
      environment: test
      steps:
-     - name: Checkout code (sparse)
-       uses: actions/checkout@v3
+
+     - name: Checkout NetApp folder
+       uses: actions/checkout@v4
        with:
-         fetch-depth: 1
-         sparse-checkout: 'aspnetapp/' 
+        sparse-checkout: |
+         NetApp     
+        sparse-checkout-cone-mode: false
 
-     - name: Ensure clean sparse checkout
-       shell: powershell
-       run: |
-        git sparse-checkout disable
-        git sparse-checkout init --cone
-        git sparse-checkout set aspnetapp
-        git read-tree -mu HEAD
+     #- name: Checkout code (sparse)
+    #   uses: actions/checkout@v3
+   #    with:
+     #    fetch-depth: 1
+     #    sparse-checkout: 'aspnetapp/' 
 
-     - name: Verify checkout contents
-       shell: powershell
+     #- name: Ensure clean sparse checkout
+      # shell: powershell
+     #  run: |
+     #   git sparse-checkout disable
+     #   git sparse-checkout init --cone
+   #     git sparse-checkout set aspnetapp
+#        git read-tree -mu HEAD
+
+   #  - name: Verify checkout contents
+   #    shell: powershell
+   #    run: |
+      #  Write-Host "Current directory contents:"
+      #  Get-ChildItem -Recurse -Depth 2 | Select-Object FullName
+      #  Write-Host "`nGit sparse-checkout configuration:"
+       # git sparse-checkout list
+       
+     - name: List files
        run: |
-        Write-Host "Current directory contents:"
-        Get-ChildItem -Recurse -Depth 2 | Select-Object FullName
-        Write-Host "`nGit sparse-checkout configuration:"
-        git sparse-checkout list
-   
+         dir "${{ github.workspace }}"
      - name: Test Deployment
        run: |
           echo "Deploying to Test environment"
