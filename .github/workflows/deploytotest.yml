@@ -69,8 +69,9 @@ jobs:
        # git sparse-checkout list
        
      - name: List files
-       run: |
-         dir "${{ github.workspace }}/asp.net-coreapplication"
+       run: dir
+       shell: cmd
+      
      - name: Test Deployment
        run: |
           echo "Deploying to Test environment"
