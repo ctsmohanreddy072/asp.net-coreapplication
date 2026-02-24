@@ -39,18 +39,18 @@ jobs:
      environment: test
      steps:
 
-     - name: Checkout NetApp folder
+    # - name: Checkout NetApp folder
+     #  uses: actions/checkout@v4
+     #  with:
+      #  sparse-checkout: |
+      #   aspnetapp     
+      #  sparse-checkout-cone-mode: false
+
+     - name: Checkout code (sparse)
        uses: actions/checkout@v4
        with:
-        sparse-checkout: |
-         aspnetapp     
-        sparse-checkout-cone-mode: false
-
-     #- name: Checkout code (sparse)
-    #   uses: actions/checkout@v3
-   #    with:
-     #    fetch-depth: 1
-     #    sparse-checkout: 'aspnetapp/' 
+         fetch-depth: 1
+         sparse-checkout: 'aspnetapp' 
 
      #- name: Ensure clean sparse checkout
       # shell: powershell
