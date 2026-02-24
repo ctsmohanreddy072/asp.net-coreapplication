@@ -41,10 +41,10 @@ jobs:
 
      - name: Checkout NetApp folder
        uses: actions/checkout@v4
-       with:
-        sparse-checkout: |
-         aspnetapp     
-        sparse-checkout-cone-mode: false
+       #with:
+       # sparse-checkout: |
+       #  aspnetapp     
+       # sparse-checkout-cone-mode: false
 
      #- name: Checkout code (sparse)
     #   uses: actions/checkout@v3
