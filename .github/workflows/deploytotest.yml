@@ -67,10 +67,14 @@ jobs:
       #  Get-ChildItem -Recurse -Depth 2 | Select-Object FullName
       #  Write-Host "`nGit sparse-checkout configuration:"
        # git sparse-checkout list
-       
+        
      - name: List files
-       run: dir
-       shell: cmd
+       run: |
+         dir "${{ github.workspace }}"     
+
+     #- name: List files
+      # run: dir
+     #  shell: cmd
       
      - name: Test Deployment
        run: |
