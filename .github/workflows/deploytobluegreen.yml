@@ -6,6 +6,9 @@ on:
   push:
    branches: [ "Patch4" ]
 
+  pull_request:
+    branches: [ "Patch4" ] 
+
 permissions:
   actions: read
   contents: read
