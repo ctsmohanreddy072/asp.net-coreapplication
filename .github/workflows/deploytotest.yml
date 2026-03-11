@@ -72,7 +72,7 @@ jobs:
         
      - name: List files
        run: |
-         dir "${{ github.workspace }}"     
+         dir "${{ github.workspace }}/aspnetapp"     
 
      #- name: List files
       # run: dir
