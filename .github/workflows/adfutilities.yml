@@ -9,12 +9,12 @@ jobs:
   deploy:
     runs-on: windows-latest  # GitHub-hosted - WORKS!
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 # Installs the Node and the npm packages saved in your package.json file in the build
     - name: Setup Node.js environment
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v6
       with:
-        node-version: 20
+        node-version: 24
         
     - name: install ADF Utilities package
       run: npm install
