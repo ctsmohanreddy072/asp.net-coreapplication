@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest  # GitHub-hosted - WORKS!
     steps:
     - uses: actions/checkout@v3
-# Installs Node and the npm packages saved in your package.json file in the build
+# Installs the Node and the npm packages saved in your package.json file in the build
     - name: Setup Node.js environment
       uses: actions/setup-node@v4
       with:
