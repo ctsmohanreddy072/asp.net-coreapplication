@@ -50,7 +50,9 @@ jobs:
        uses: actions/checkout@v4
        with:
          fetch-depth: 1
-         sparse-checkout: 'aspnetapp' 
+         sparse-checkout: |
+           aspnetapp
+         sparse-checkout-cone-mode: false
 
      #- name: Ensure clean sparse checkout
       # shell: powershell
