@@ -15,6 +15,10 @@ on:
         type: choice
         options:
         - test
+       build_number:
+        description: 'please build number'
+        required: true
+        type: string
 
 permissions:
   actions: read
