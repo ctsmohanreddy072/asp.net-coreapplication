@@ -17,7 +17,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: Download Latest from develop
-        uses: dawidd6/action-download-artifact@v8
+        uses: dawidd6/action-download-artifact@v17
         with:
          github_token: ${{ secrets.GITHUB_TOKEN }}
          workflow: build.yml
