@@ -14,7 +14,7 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v6
         with:
-          name: build-output
+          name: build-output-${{ github.run_number }}
           path: ${{github.workspace}}/aspnetapp/**
 
   deploy:
@@ -24,7 +24,7 @@ jobs:
       - name: Download build artifact
         uses: actions/download-artifact@v7
         with:
-          name: build-output
+          name: build-output-${{ github.run_number }}
           path: ${{github.workspace}}/app
       
       - name: list
