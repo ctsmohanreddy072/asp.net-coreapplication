@@ -30,3 +30,10 @@ jobs:
       - name: list
         run: |
            dir "${{github.workspace}}/app"
+
+      - name: Notify team on success
+        uses: JarvusInnovations/email-notify@v1
+        with:
+         to: mohanreddy072@gmail.com
+         subject: 'Build/deploy success'
+         body: 'Check the run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}'
